@@ -510,7 +510,7 @@ export default function Home() {
             <div className="text-center md:text-right">
               <p className="text-stone-400 text-sm mb-2">© 2026 On The Land Lawn Service. All rights reserved.</p>
               <a href="https://designsbyteck.com" target="_blank" rel="noopener noreferrer" className="text-xs text-stone-500 hover:text-green-400 transition-colors" style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}}>
-                Designed By Teck
+                Designed By Teck AKA twin
               </a>
             </div>
           </div>
