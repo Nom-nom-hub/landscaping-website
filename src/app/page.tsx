@@ -105,18 +105,17 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3 lg:hidden">
-              <a href="tel:+19412183924" className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white">
-                <span>📞</span>
+              <a href="tel:+19412183924" className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white text-xl">
+                📞
               </a>
               <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)} 
-                onTouchEnd={(e) => { e.preventDefault(); setIsMenuOpen(!isMenuOpen); }}
-                className="w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center active:bg-stone-200 dark:active:bg-stone-700 touch-manipulation"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="w-12 h-12 rounded-full bg-white dark:bg-stone-800 flex items-center justify-center shadow-lg border border-stone-200 dark:border-stone-700"
                 aria-label="Toggle menu"
+                type="button"
               >
-                <svg className="w-6 h-6 text-stone-700 dark:text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                <svg className="w-6 h-6 text-stone-700 dark:text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
             </div>
@@ -124,60 +123,64 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
         <div 
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
-          onClick={() => setIsMenuOpen(false)} 
-          onTouchEnd={() => setIsMenuOpen(false)} 
-        />
-        <div className={`absolute top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white dark:bg-stone-900 shadow-2xl transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="pt-20 p-6">
-            <div className="flex items-center justify-between mb-10">
-              <Logo />
-              <div className="flex items-center gap-3">
-                <button onClick={toggleTheme} className="w-10 h-10 rounded-full border border-stone-200 dark:border-stone-700 flex items-center justify-center hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300 text-lg">
-                  {theme === "light" ? "🌙" : "☀️"}
-                </button>
+          className="fixed inset-0 z-[60] lg:hidden"
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
+            onClick={() => setIsMenuOpen(false)} 
+          />
+          <div className="absolute top-0 right-0 bottom-0 w-full max-w-[320px] bg-white dark:bg-stone-900 shadow-2xl overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-8">
+                <Logo />
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  onTouchEnd={(e) => { e.preventDefault(); setIsMenuOpen(false); }}
-                  className="p-3 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white active:bg-stone-100 dark:active:bg-stone-800 rounded-full touch-manipulation"
-                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                  className="w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300"
                   aria-label="Close menu"
+                  type="button"
                 >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
-            </div>
-            
-            <nav className="space-y-2 mb-10">
-              {["Services", "About", "Contact"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} 
-                   onClick={() => setIsMenuOpen(false)}
-                   className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all">
-                  {item}
+              
+              <button 
+                onClick={toggleTheme} 
+                className="w-full flex items-center gap-3 px-4 py-3 mb-4 text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-xl"
+              >
+                {theme === "light" ? "🌙" : "☀️"} Toggle Theme
+              </button>
+              
+              <nav className="space-y-2 mb-6">
+                {["Services", "About", "Contact"].map((item) => (
+                  <a key={item} href={`#${item.toLowerCase()}`} 
+                     onClick={() => setIsMenuOpen(false)}
+                     className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all">
+                    {item}
+                  </a>
+                ))}
+              </nav>
+              
+              <div className="space-y-3 pt-4 border-t border-stone-200 dark:border-stone-700">
+                <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all text-lg">
+                  📞 (941) 218-3924
                 </a>
-              ))}
-            </nav>
-            
-            <div className="space-y-3 pt-6 border-t border-stone-200 dark:border-stone-700">
-              <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all text-lg">
-                📞 (941) 218-3924
-              </a>
-              <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-all">
-                💬 Text Us
-              </a>
-            </div>
-            
-            <div className="mt-10 pt-6 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
-              <p>📍 Lehigh • Fort Myers • Cape Coral</p>
+                <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-all">
+                  💬 Text Us
+                </a>
+              </div>
+              <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
+                <p>📍 Lehigh • Fort Myers • Cape Coral</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-stone-900">
