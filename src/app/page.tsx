@@ -124,63 +124,61 @@ export default function Home() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
+      <div 
+        className={`fixed inset-0 z-[60] hidden transition-opacity ${isMenuOpen ? '!block' : ''}`}
+        id="mobile-menu-overlay"
+      >
         <div 
-          className="fixed inset-0 z-[60] lg:hidden"
-          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
-        >
-          <div 
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
-            onClick={() => setIsMenuOpen(false)} 
-          />
-          <div className="absolute top-0 right-0 bottom-0 w-full max-w-[320px] bg-white dark:bg-stone-900 shadow-2xl overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-8">
-                <Logo />
-                <button 
-                  onClick={() => setIsMenuOpen(false)} 
-                  className="w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300"
-                  aria-label="Close menu"
-                  type="button"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              
+          className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
+          onClick={() => setIsMenuOpen(false)} 
+        />
+        <div className="absolute top-0 right-0 bottom-0 w-[85vw] max-w-[320px] bg-white dark:bg-stone-900 shadow-2xl overflow-y-auto">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-8">
+              <Logo />
               <button 
-                onClick={toggleTheme} 
-                className="w-full flex items-center gap-3 px-4 py-3 mb-4 text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-xl"
+                onClick={() => setIsMenuOpen(false)} 
+                className="w-14 h-14 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300"
+                aria-label="Close menu"
+                type="button"
               >
-                {theme === "light" ? "🌙" : "☀️"} Toggle Theme
+                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
-              
-              <nav className="space-y-2 mb-6">
-                {["Services", "About", "Contact"].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase()}`} 
-                     onClick={() => setIsMenuOpen(false)}
-                     className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all">
-                    {item}
-                  </a>
-                ))}
-              </nav>
-              
-              <div className="space-y-3 pt-4 border-t border-stone-200 dark:border-stone-700">
-                <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all text-lg">
-                  📞 (941) 218-3924
+            </div>
+            
+            <button 
+              onClick={toggleTheme} 
+              className="w-full flex items-center gap-3 px-4 py-3 mb-4 text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-xl"
+            >
+              {theme === "light" ? "🌙" : "☀️"} Toggle Theme
+            </button>
+            
+            <nav className="space-y-2 mb-6">
+              {["Services", "About", "Contact"].map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} 
+                   onClick={() => setIsMenuOpen(false)}
+                   className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all">
+                  {item}
                 </a>
-                <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-all">
-                  💬 Text Us
-                </a>
-              </div>
-              <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
-                <p>📍 Lehigh • Fort Myers • Cape Coral</p>
-              </div>
+              ))}
+            </nav>
+            
+            <div className="space-y-3 pt-4 border-t border-stone-200 dark:border-stone-700">
+              <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all text-lg">
+                📞 (941) 218-3924
+              </a>
+              <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-all">
+                💬 Text Us
+              </a>
+            </div>
+            <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
+              <p>📍 Lehigh • Fort Myers • Cape Coral</p>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-stone-900">
