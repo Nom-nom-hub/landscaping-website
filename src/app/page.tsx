@@ -108,8 +108,14 @@ export default function Home() {
               <a href="tel:+19412183924" className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white">
                 <span>📞</span>
               </a>
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="w-10 h-10 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center">
-                <svg className="w-5 h-5 text-stone-700 dark:text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                onTouchEnd={(e) => { e.preventDefault(); setIsMenuOpen(!isMenuOpen); }}
+                className="w-12 h-12 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center active:bg-stone-200 dark:active:bg-stone-700 touch-manipulation"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6 text-stone-700 dark:text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
                 </svg>
               </button>
@@ -120,7 +126,11 @@ export default function Home() {
 
       {/* Mobile Menu */}
       <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
+        <div 
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+          onClick={() => setIsMenuOpen(false)} 
+          onTouchEnd={() => setIsMenuOpen(false)} 
+        />
         <div className={`absolute top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white dark:bg-stone-900 shadow-2xl transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="pt-20 p-6">
             <div className="flex items-center justify-between mb-10">
@@ -129,7 +139,13 @@ export default function Home() {
                 <button onClick={toggleTheme} className="w-10 h-10 rounded-full border border-stone-200 dark:border-stone-700 flex items-center justify-center hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300 text-lg">
                   {theme === "light" ? "🌙" : "☀️"}
                 </button>
-                <button onClick={() => setIsMenuOpen(false)} className="p-2 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white">
+                <button 
+                  onClick={() => setIsMenuOpen(false)} 
+                  onTouchEnd={(e) => { e.preventDefault(); setIsMenuOpen(false); }}
+                  className="p-3 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white active:bg-stone-100 dark:active:bg-stone-800 rounded-full touch-manipulation"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                  aria-label="Close menu"
+                >
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -217,31 +233,35 @@ export default function Home() {
             
             <div className="hidden lg:block relative">
               <div className="absolute -inset-4 bg-green-600/20 rounded-3xl blur-3xl"></div>
-              <div className="relative bg-stone-800/80 backdrop-blur-sm rounded-3xl p-8 border border-stone-700">
-                <div className="text-center mb-6">
-                  <span className="text-6xl">🌿</span>
+              <div className="relative bg-gradient-to-br from-stone-800 to-stone-900 rounded-3xl p-8 border border-green-500/30 shadow-2xl shadow-green-900/20">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-green-600/20 rounded-full mb-4">
+                    <span className="text-4xl">🌿</span>
+                  </div>
+                  <h3 className="text-white font-bold text-lg">Why Choose Us</h3>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-stone-300">
-                    <span className="text-green-500">✓</span>
-                    <span>Licensed & Insured</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-stone-300">
-                    <span className="text-green-500">✓</span>
-                    <span>12+ Years Experience</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-stone-300">
-                    <span className="text-green-500">✓</span>
-                    <span>Free Estimates</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-stone-300">
-                    <span className="text-green-500">✓</span>
-                    <span>Family Owned & Local</span>
-                  </div>
+                <div className="space-y-3">
+                  {[
+                    { icon: "🛡️", text: "Licensed & Insured" },
+                    { icon: "⏱️", text: "12+ Years Experience" },
+                    { icon: "💰", text: "Free Estimates" },
+                    { icon: "👨‍👩‍👧", text: "Family Owned & Local" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 bg-stone-700/50 rounded-xl px-4 py-3">
+                      <span className="text-xl">{item.icon}</span>
+                      <span className="text-stone-100 font-medium">{item.text}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="mt-6 pt-6 border-t border-stone-700 text-center">
-                  <p className="text-stone-400 text-sm">Service Areas</p>
-                  <p className="text-white font-semibold">Lehigh • Fort Myers • Cape Coral</p>
+                <div className="mt-6 pt-6 border-t border-stone-600">
+                  <p className="text-center text-stone-400 text-xs uppercase tracking-wider mb-3">Service Areas</p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {["Lehigh Acres", "Fort Myers", "Cape Coral", "N Ft Myers", "Estero"].map((area, i) => (
+                      <span key={i} className="px-3 py-1 bg-green-600/20 text-green-400 text-sm rounded-full border border-green-500/30">
+                        {area}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -268,7 +288,7 @@ export default function Home() {
       <section ref={statsReveal.ref} className={`py-20 bg-stone-900 text-white transition-all duration-1000 ${statsReveal.isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <div className="max-w-[1600px] mx-auto px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[{n: 500, s: "+", l: "Jobs Done"}, {n: 12, s: "+", l: "Years Experience"}, {n: 100, s: "%", l: "Satisfaction"}, {n: 3, s: "", l: "Service Areas"}].map((item, i) => (
+            {[{n: 500, s: "+", l: "Jobs Done"}, {n: 12, s: "+", l: "Years Experience"}, {n: 100, s: "%", l: "Satisfaction"}, {n: 6, s: "", l: "Service Areas"}].map((item, i) => (
               <div key={i} className="transform transition-all duration-700">
                 <p className="text-5xl md:text-6xl font-bold text-green-400 mb-2"><AnimatedNumber value={item.n} suffix={item.s} /></p>
                 <p className="text-xs tracking-[0.2em] text-stone-400 uppercase">{item.l}</p>
