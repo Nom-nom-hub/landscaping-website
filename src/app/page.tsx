@@ -5,6 +5,114 @@ import { useTheme } from "@/components/ThemeProvider";
 import Logo from "@/components/Logo";
 import ChatBot from "@/components/ChatBot";
 
+function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { theme, toggleTheme } = useTheme();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  const navItems = [
+    { label: "Services", href: "#services" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
+  ];
+
+  return (
+    <>
+      <div 
+        className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div 
+          className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
+          onClick={onClose} 
+          aria-hidden="true"
+        />
+      </div>
+      
+      <div 
+        ref={menuRef}
+        className={`fixed top-0 right-0 bottom-0 z-[70] w-[85vw] max-w-[320px] bg-white dark:bg-stone-900 shadow-2xl transition-transform duration-300 ease-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation menu"
+      >
+        <div className="flex flex-col h-full overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b border-stone-200 dark:border-stone-700">
+            <Logo />
+            <button 
+              onClick={onClose} 
+              className="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors"
+              aria-label="Close menu"
+              type="button"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          
+          <div className="flex-1 p-6">
+            <button 
+              onClick={toggleTheme} 
+              className="w-full flex items-center gap-3 px-4 py-3 mb-6 text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-xl hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors"
+            >
+              {theme === "light" ? "🌙" : "☀️"} Toggle Theme
+            </button>
+            
+            <nav className="space-y-2 mb-6">
+              {navItems.map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href}
+                  onClick={onClose}
+                  className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+          
+          <div className="p-6 border-t border-stone-200 dark:border-stone-700">
+            <div className="space-y-3">
+              <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-colors text-lg">
+                📞 (941) 218-3924
+              </a>
+              <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-colors">
+                💬 Text Us
+              </a>
+            </div>
+            <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
+              <p>📍 Lehigh • Fort Myers • Cape Coral</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 const services = [
   { value: "mowing", label: "Lawn Mowing", desc: "Professional grass cutting every visit", price: "Starting $35" },
   { value: "weedeating", label: "Weed Eating", desc: "Edge and trim around obstacles", price: "Starting $20" },
@@ -123,62 +231,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-[60] hidden transition-opacity ${isMenuOpen ? '!block' : ''}`}
-        id="mobile-menu-overlay"
-      >
-        <div 
-          className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
-          onClick={() => setIsMenuOpen(false)} 
-        />
-        <div className="absolute top-0 right-0 bottom-0 w-[85vw] max-w-[320px] bg-white dark:bg-stone-900 shadow-2xl overflow-y-auto">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-8">
-              <Logo />
-              <button 
-                onClick={() => setIsMenuOpen(false)} 
-                className="w-14 h-14 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300"
-                aria-label="Close menu"
-                type="button"
-              >
-                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <button 
-              onClick={toggleTheme} 
-              className="w-full flex items-center gap-3 px-4 py-3 mb-4 text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-xl"
-            >
-              {theme === "light" ? "🌙" : "☀️"} Toggle Theme
-            </button>
-            
-            <nav className="space-y-2 mb-6">
-              {["Services", "About", "Contact"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} 
-                   onClick={() => setIsMenuOpen(false)}
-                   className="block px-4 py-4 text-lg font-medium text-stone-700 dark:text-stone-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition-all">
-                  {item}
-                </a>
-              ))}
-            </nav>
-            
-            <div className="space-y-3 pt-4 border-t border-stone-200 dark:border-stone-700">
-              <a href="tel:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all text-lg">
-                📞 (941) 218-3924
-              </a>
-              <a href="sms:+19412183924" className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold rounded-xl transition-all">
-                💬 Text Us
-              </a>
-            </div>
-            <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-700 text-center text-sm text-stone-500">
-              <p>📍 Lehigh • Fort Myers • Cape Coral</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-stone-900">
