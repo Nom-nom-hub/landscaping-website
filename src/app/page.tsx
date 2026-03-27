@@ -415,33 +415,27 @@ export default function Home() {
       <section id="gallery" className="py-24 bg-gradient-to-b from-stone-100 to-white dark:from-stone-900 dark:to-stone-950">
         <div className="max-w-[1600px] mx-auto px-8">
           <div className="text-center mb-16">
-            <span className="text-xs tracking-[0.3em] text-green-600 uppercase mb-4 block font-bold">Portfolio</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Coming Soon
+            </span>
             <h2 className="text-4xl md:text-5xl font-bold text-stone-900 dark:text-white mb-4">Our Work Gallery</h2>
             <p className="text-stone-500 dark:text-stone-400 max-w-2xl mx-auto">Stunning lawn transformations and landscape projects. Check back soon to see what we can do for your yard!</p>
           </div>
           
           <div className="relative">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {[
-                "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80",
-                "https://images.unsplash.com/photo-1592496001020-d31bd830651f?w=600&q=80",
-                "https://images.unsplash.com/photo-1592722212872-8a2e6a44a90b?w=600&q=80",
-                "https://images.unsplash.com/photo-1605117882932-f9e32b03ef3c?w=600&q=80",
-                "https://images.unsplash.com/photo-1594858269319-0e07e3a93b11?w=600&q=80",
-                "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80",
-                "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
-              ].map((src, i) => (
+              {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className={`group relative overflow-hidden rounded-2xl ${
                   i === 0 ? 'col-span-2 row-span-2' : ''
                 } ${i === 5 ? 'col-span-2 md:col-span-1' : ''}`}>
-                  <img 
-                    src={src} 
-                    alt={`Lawn and landscaping work ${i + 1}`}
-                    className={`${i === 0 ? 'aspect-square' : 'aspect-[4/3]'} w-full h-full object-cover transition-all duration-500 group-hover:scale-110`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="text-white font-medium text-sm">Our Work</span>
+                  <div className={`${i === 0 ? 'aspect-square' : 'aspect-[4/3]'} bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-800 dark:to-stone-700 border-2 border-dashed border-stone-300 dark:border-stone-600 rounded-2xl flex flex-col items-center justify-center gap-3 transition-all duration-300 group-hover:border-green-400 dark:group-hover:border-green-600`}>
+                    <div className="w-16 h-16 rounded-full bg-stone-300 dark:bg-stone-700 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-stone-400 dark:text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-stone-400 dark:text-stone-500">Photo {i + 1}</span>
                   </div>
                 </div>
               ))}
