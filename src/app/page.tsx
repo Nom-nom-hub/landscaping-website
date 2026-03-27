@@ -338,6 +338,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Special Offer Banner */}
+      <section className="bg-gradient-to-r from-amber-500 to-orange-500 text-white py-6">
+        <div className="max-w-[1600px] mx-auto px-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <span className="text-lg font-bold">🎉 New Customer Special: First Visit 10% Off!</span>
+          <a href="tel:+19412183924" className="px-6 py-2 bg-white text-orange-600 font-bold rounded-full hover:bg-stone-100 transition-colors">
+            Call for Offer: (941) 218-3924
+          </a>
+        </div>
+      </section>
+
       {/* Stats */}
       <section ref={statsReveal.ref} className={`py-20 bg-stone-900 text-white transition-all duration-1000 ${statsReveal.isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <div className="max-w-[1600px] mx-auto px-8">
@@ -364,6 +374,10 @@ export default function Home() {
               ))}
             </div>
             <p className="text-stone-500">5.0 average from 50+ reviews</p>
+            <a href="https://www.google.com/search?q=On+The+Land+Lawn+Service+Lehigh+Acres" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm font-medium hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              See Reviews on Google
+            </a>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -401,27 +415,33 @@ export default function Home() {
       <section id="gallery" className="py-24 bg-gradient-to-b from-stone-100 to-white dark:from-stone-900 dark:to-stone-950">
         <div className="max-w-[1600px] mx-auto px-8">
           <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              Coming Soon
-            </span>
+            <span className="text-xs tracking-[0.3em] text-green-600 uppercase mb-4 block font-bold">Portfolio</span>
             <h2 className="text-4xl md:text-5xl font-bold text-stone-900 dark:text-white mb-4">Our Work Gallery</h2>
             <p className="text-stone-500 dark:text-stone-400 max-w-2xl mx-auto">Stunning lawn transformations and landscape projects. Check back soon to see what we can do for your yard!</p>
           </div>
           
           <div className="relative">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {Array.from({ length: 8 }).map((_, i) => (
+              {[
+                "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80",
+                "https://images.unsplash.com/photo-1592496001020-d31bd830651f?w=600&q=80",
+                "https://images.unsplash.com/photo-1592722212872-8a2e6a44a90b?w=600&q=80",
+                "https://images.unsplash.com/photo-1605117882932-f9e32b03ef3c?w=600&q=80",
+                "https://images.unsplash.com/photo-1594858269319-0e07e3a93b11?w=600&q=80",
+                "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80",
+                "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+              ].map((src, i) => (
                 <div key={i} className={`group relative overflow-hidden rounded-2xl ${
                   i === 0 ? 'col-span-2 row-span-2' : ''
                 } ${i === 5 ? 'col-span-2 md:col-span-1' : ''}`}>
-                  <div className={`${i === 0 ? 'aspect-square' : 'aspect-[4/3]'} bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-800 dark:to-stone-700 border-2 border-dashed border-stone-300 dark:border-stone-600 rounded-2xl flex flex-col items-center justify-center gap-3 transition-all duration-300 group-hover:border-green-400 dark:group-hover:border-green-600`}>
-                    <div className="w-16 h-16 rounded-full bg-stone-300 dark:bg-stone-700 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-stone-400 dark:text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-stone-400 dark:text-stone-500">Photo {i + 1}</span>
+                  <img 
+                    src={src} 
+                    alt={`Lawn and landscaping work ${i + 1}`}
+                    className={`${i === 0 ? 'aspect-square' : 'aspect-[4/3]'} w-full h-full object-cover transition-all duration-500 group-hover:scale-110`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="text-white font-medium text-sm">Our Work</span>
                   </div>
                 </div>
               ))}
@@ -481,6 +501,41 @@ export default function Home() {
           <a href="tel:+19412183924" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-green-700 font-bold rounded-full hover:bg-stone-100 transition-all shadow-lg text-lg">
             📞 Call or Text: (941) 218-3924
           </a>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-24 bg-white dark:bg-stone-950">
+        <div className="max-w-[1600px] mx-auto px-8">
+          <div className="text-center mb-12">
+            <span className="text-xs tracking-[0.3em] text-green-600 uppercase mb-4 block font-bold">Questions?</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-stone-900 dark:text-white mb-4">Frequently Asked Questions</h2>
+          </div>
+          
+          <div className="max-w-3xl mx-auto space-y-4">
+            {[
+              { q: "How much does lawn mowing cost?", a: "Most residential lawns start at $35 per visit. We offer weekly, bi-weekly, and one-time service. Get a free quote by calling (941) 218-3924!" },
+              { q: "Do you bring your own equipment?", a: "Yes! We bring everything needed - mowers, blowers, weed eaters, and tools. Just point us to your yard and we handle the rest." },
+              { q: "How often should I get my lawn serviced?", a: "Most customers prefer weekly service during growing season (March-November) and bi-weekly in winter. We can recommend what's best for your lawn." },
+              { q: "Do you offer free estimates?", a: "Absolutely! We offer free estimates for all services - from regular mowing to large land clearing projects. Just give us a call or text." },
+              { q: "Are you licensed and insured?", a: "Yes! We're fully licensed and insured for your peace of mind. You can trust us with your property." },
+              { q: "What areas do you serve?", a: "We serve Lehigh Acres, Fort Myers, Cape Coral, North Fort Myers, Estero, and Bonita Springs. Contact us if you're nearby - we may be able to help!" },
+            ].map((faq, i) => (
+              <details key={i} className="group bg-stone-50 dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800">
+                <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                  <span className="font-semibold text-stone-900 dark:text-white pr-4">{faq.q}</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 group-open:rotate-180 transition-transform">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </summary>
+                <div className="px-6 pb-6 text-stone-600 dark:text-stone-400 leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -568,6 +623,50 @@ export default function Home() {
                 <span>✓</span>
                 <span>Licensed & Insured</span>
               </div>
+            </div>
+            
+            {/* Lead Capture Form */}
+            <div className="mt-12 p-8 bg-stone-800/50 rounded-2xl border border-stone-700">
+              <h3 className="text-xl font-bold text-white mb-4">📝 Request a Free Quote</h3>
+              <form className="grid md:grid-cols-2 gap-4 text-left" onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+                const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
+                const service = (form.elements.namedItem('service') as HTMLSelectElement).value;
+                const address = (form.elements.namedItem('address') as HTMLInputElement).value;
+                window.location.href = `sms:+19412183924?body=Hi%2C%20my%20name%20is%20${encodeURIComponent(name)}.%20I'm%20interested%20in%20${encodeURIComponent(service)}%20at%20${encodeURIComponent(address)}.%20My%20phone%20is%20${encodeURIComponent(phone)}`;
+              }}>
+                <div>
+                  <label className="block text-stone-400 text-sm mb-1">Your Name</label>
+                  <input name="name" type="text" required placeholder="John Smith" className="w-full px-4 py-3 bg-stone-700 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                </div>
+                <div>
+                  <label className="block text-stone-400 text-sm mb-1">Phone Number</label>
+                  <input name="phone" type="tel" required placeholder="(941) 555-0123" className="w-full px-4 py-3 bg-stone-700 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                </div>
+                <div>
+                  <label className="block text-stone-400 text-sm mb-1">Service Needed</label>
+                  <select name="service" className="w-full px-4 py-3 bg-stone-700 border border-stone-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="lawn mowing">Lawn Mowing</option>
+                    <option value="weed eating">Weed Eating</option>
+                    <option value="hedge trimming">Hedge Trimming</option>
+                    <option value="weed control">Weed Control</option>
+                    <option value="land clearing">Land Clearing</option>
+                    <option value="landscape design">Landscape Design</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-stone-400 text-sm mb-1">Your Address</label>
+                  <input name="address" type="text" required placeholder="123 Main St, Lehigh Acres" className="w-full px-4 py-3 bg-stone-700 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                </div>
+                <div className="md:col-span-2">
+                  <button type="submit" className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors text-lg">
+                    📱 Get My Free Quote via Text
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
