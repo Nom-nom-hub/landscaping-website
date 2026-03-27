@@ -289,28 +289,28 @@ export default function Home() {
               <div className="absolute -inset-4 bg-green-600/20 rounded-3xl blur-3xl"></div>
               <div className="relative bg-gradient-to-br from-stone-800 to-stone-900 rounded-3xl p-8 border border-green-500/30 shadow-2xl shadow-green-900/20">
                 <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-green-600/20 rounded-full mb-4">
-                    <span className="text-4xl">🌿</span>
-                  </div>
-                  <h3 className="text-white font-bold text-lg">Why Choose Us</h3>
+                  <span className="text-xs tracking-[0.3em] text-green-500 uppercase mb-4 block font-bold">Why Choose Us</span>
+                  <h3 className="text-white font-bold text-2xl">Your Local Lawn Care Experts</h3>
                 </div>
-                <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-4">
                   {[
-                    { icon: "🛡️", text: "Licensed & Insured" },
-                    { icon: "⏱️", text: "12+ Years Experience" },
-                    { icon: "💰", text: "Free Estimates" },
-                    { icon: "👨‍👩‍👧", text: "Family Owned & Local" },
+                    { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", text: "Licensed & Insured" },
+                    { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "12+ Years Experience" },
+                    { icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", text: "Free Estimates" },
+                    { icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6", text: "Family Owned & Local" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 bg-stone-700/50 rounded-xl px-4 py-3">
-                      <span className="text-xl">{item.icon}</span>
-                      <span className="text-stone-100 font-medium">{item.text}</span>
+                      <svg className="w-6 h-6 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                      </svg>
+                      <span className="text-stone-100 text-sm font-medium">{item.text}</span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-6 pt-6 border-t border-stone-600">
-                  <p className="text-center text-stone-400 text-xs uppercase tracking-wider mb-3">Service Areas</p>
+                  <p className="text-center text-stone-400 text-xs uppercase tracking-wider mb-3">Proudly Serving</p>
                   <div className="flex flex-wrap justify-center gap-2">
-                    {["Lehigh Acres", "Fort Myers", "Cape Coral", "N Ft Myers", "Estero"].map((area, i) => (
+                    {["Lehigh Acres", "Fort Myers", "Cape Coral", "North Fort Myers", "Estero"].map((area, i) => (
                       <span key={i} className="px-3 py-1 bg-green-600/20 text-green-400 text-sm rounded-full border border-green-500/30">
                         {area}
                       </span>
