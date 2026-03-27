@@ -2,6 +2,77 @@
 
 import { useState, useRef, useEffect } from "react";
 
+// ============ SECURITY MEASURES ============
+
+// Rate limiting - max messages per time window
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW = 60000; // 1 minute
+
+// Bot detection thresholds
+const MIN_TIME_ON_PAGE = 3000; // 3 seconds minimum before sending messages
+const MAX_MESSAGES_PER_MINUTE = 8;
+
+// Honeypot field name (hidden from users, bots may fill it)
+const HONEYPOT_FIELD = "website_url";
+
+// Suspicious patterns in messages
+const SUSPICIOUS_PATTERNS = [
+  /click here/i,
+  /buy now/i,
+  /viagra/i,
+  /casino/i,
+  /crypto/i,
+  /bitcoin/i,
+  /\bhttps?:\/\/[^\s]{50,}\b/i, // extremely long URLs
+  /\$\d{5,}/, // promises of large money
+  /winner/i,
+  /congratulations.*won/i,
+  /urgent.*transfer/i,
+  /bank.*account/i,
+  /\.exe\b/i,
+  /\.zip\b/i,
+];
+
+// Track rate limits in session storage
+function getRateLimitData(): { count: number; timestamp: number } {
+  try {
+    const data = sessionStorage.getItem("chat_rate_limit");
+    return data ? JSON.parse(data) : { count: 0, timestamp: Date.now() };
+  } catch {
+    return { count: 0, timestamp: Date.now() };
+  }
+}
+
+function checkRateLimit(): boolean {
+  const data = getRateLimitData();
+  const now = Date.now();
+  
+  // Reset if window passed
+  if (now - data.timestamp > RATE_LIMIT_WINDOW) {
+    sessionStorage.setItem("chat_rate_limit", JSON.stringify({ count: 1, timestamp: now }));
+    return true;
+  }
+  
+  // Check if over limit
+  if (data.count >= RATE_LIMIT_MAX) {
+    return false;
+  }
+  
+  // Increment count
+  sessionStorage.setItem("chat_rate_limit", JSON.stringify({ count: data.count + 1, timestamp: data.timestamp }));
+  return true;
+}
+
+// Check if message looks like spam/bot
+function isSuspiciousMessage(text: string): boolean {
+  return SUSPICIOUS_PATTERNS.some(pattern => pattern.test(text));
+}
+
+// Track when user first loaded the page
+const pageLoadTime = Date.now();
+
+// ============ END SECURITY MEASURES ============
+
 interface Message {
   id: number;
   text: string;
@@ -498,6 +569,32 @@ export default function ChatBot() {
   const handleUserMessage = (text: string) => {
     if (!text.trim()) return;
 
+    // ============ SECURITY CHECKS ============
+    
+    // 1. Rate limiting
+    if (!checkRateLimit()) {
+      setIsTyping(false);
+      addBotMessage("Whoa there! You're going too fast. Please wait a moment before sending more messages. 🤖", []);
+      return;
+    }
+
+    // 2. Check time on page (block very fast submissions)
+    const timeOnPage = Date.now() - pageLoadTime;
+    if (timeOnPage < MIN_TIME_ON_PAGE) {
+      setIsTyping(false);
+      addBotMessage("Slow down! Take a moment to read about our services first. 😊", []);
+      return;
+    }
+
+    // 3. Suspicious message pattern check
+    if (isSuspiciousMessage(text)) {
+      setIsTyping(false);
+      addBotMessage("Hmm, that doesn't look like a typical message. Are you actually interested in our lawn services? If so, give us a call at (941) 218-3924!", []);
+      return;
+    }
+
+    // ============ END SECURITY CHECKS ============
+
     const userMessage: Message = { id: Date.now(), text, isBot: false };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
@@ -624,6 +721,23 @@ export default function ChatBot() {
 
               {/* Input */}
               <form onSubmit={handleSubmit} className="p-3 bg-white dark:bg-stone-900 border-t border-stone-100 dark:border-stone-800 flex-shrink-0">
+                {/* Honeypot field - hidden from real users */}
+                <input
+                  type="text"
+                  name={HONEYPOT_FIELD}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  autoFocus={false}
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+                  onChange={(e) => {
+                    // If this hidden field is filled, it's definitely a bot
+                    if (e.target.value) {
+                      console.log("Bot detected via honeypot");
+                      setInput("");
+                      addBotMessage("Thanks for your interest! To get in touch, please call us at (941) 218-3924. 📞", []);
+                    }
+                  }}
+                />
                 <div className="flex gap-2">
                   <input
                     ref={inputRef}
