@@ -212,7 +212,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-3 block">
               <a href="tel:+19412183924" className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white text-xl">
                 📞
               </a>
